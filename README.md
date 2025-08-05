@@ -1,7 +1,7 @@
 Weather Data Ingestion Pipeline
 A production-grade ETL pipeline to extract live weather data from the WeatherStack API, load it into a PostgreSQL database, and enable visualization with Apache Superset. The entire workflow is containerized with Docker and orchestrated using Apache Airflow for reliability and scalability.
 
-# Features
+### Features
 Automated ETL: Fetches data from the WeatherStack API.
 
 Data Storage: Loads structured data into a PostgreSQL table.
@@ -12,7 +12,7 @@ Visualization: Supports data analysis and dashboard creation via Apache Superset
 
 Containerized: Fully portable and reproducible environment using Docker Compose.
 
-# Tech Stack
+###Tech Stack
 Language: Python
 
 Databases: PostgreSQL
@@ -25,7 +25,7 @@ APIs: WeatherStack (REST)
 
 BI: Apache Superset
 
-# Quickstart
+### Quickstart
 Clone the repository:
 
 Bash
