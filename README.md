@@ -30,7 +30,7 @@ Clone the repository:
 
 Bash
 
-git clone https://github.com/yourusername/weather_pipeline.git
+git clone https://github.com/njPlanck/Weather-Data-Project.git
 cd weather_pipeline
 Configure API and DB credentials:
 
