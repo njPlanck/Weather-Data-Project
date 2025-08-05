@@ -1,125 +1,63 @@
-# 🌦️ Weather Data Ingestion Pipeline
+Weather Data Ingestion Pipeline
+A production-grade ETL pipeline to extract live weather data from the WeatherStack API, load it into a PostgreSQL database, and enable visualization with Apache Superset. The entire workflow is containerized with Docker and orchestrated using Apache Airflow for reliability and scalability.
 
-A production-grade data pipeline that extracts live weather data from the WeatherStack API, stores it in PostgreSQL, and enables visualization via Apache Superset. Orchestrated using Apache Airflow and Docker for reliability and scalability.
+# Features
+Automated ETL: Fetches data from the WeatherStack API.
 
----
+Data Storage: Loads structured data into a PostgreSQL table.
 
-## 🔧 Tech Stack
+Orchestration: Manages and schedules data jobs with Apache Airflow.
 
-- **Language**: Python
-- **Database**: PostgreSQL
-- **Scheduler**: Apache Airflow
-- **API**: WeatherStack (REST)
-- **Visualization**: Apache Superset
-- **Deployment**: Docker, Docker Compose
+Visualization: Supports data analysis and dashboard creation via Apache Superset.
 
----
+Containerized: Fully portable and reproducible environment using Docker Compose.
 
-## 📁 Project Structure
+# Tech Stack
+Language: Python
 
-weather_pipeline/
-├── dags/
-│ └── weather_etl_dag.py # Airflow DAG
-├── scripts/
-│ └── extract_weather.py # Script to fetch and load data
-├── db/
-│ └── schema.sql # SQL schema for weather table
-├── docker/
-│ ├── docker-compose.yml # Multi-service container config
-│ └── Dockerfile # (Optional) Custom images
-├── superset/
-│ └── superset_config.py # Superset config if needed
-├── requirements.txt # Python dependencies
-└── README.md
+Databases: PostgreSQL
 
-yaml
-Kopieren
-Bearbeiten
+Orchestration: Apache Airflow
 
----
+Deployment: Docker, Docker Compose
 
-## 🚀 Setup Guide (Using Docker)
+APIs: WeatherStack (REST)
 
-### 1. Clone & Configure
+BI: Apache Superset
 
-```bash
+# Quickstart
+Clone the repository:
+
+Bash
+
 git clone https://github.com/yourusername/weather_pipeline.git
 cd weather_pipeline
-Update your WeatherStack API key and PostgreSQL credentials inside:
+Configure API and DB credentials:
 
-scripts/extract_weather.py
+Update extract_weather.py and weather_etl_dag.py with your credentials or use environment variables.
 
-dags/weather_etl_dag.py
+Launch services with Docker Compose:
 
-Or set them as environment variables.
+Bash
 
-2. Launch with Docker Compose
-bash
-Kopieren
-Bearbeiten
 docker-compose up --build
-This will spin up:
+Initialize the database schema:
 
-Airflow Scheduler & Webserver
+Bash
 
-PostgreSQL Database
-
-Superset
-
-Airflow Worker (if Celery used)
-
-3. Initialize Database Schema
-After services are up:
-
-bash
-Kopieren
-Bearbeiten
 docker exec -it <postgres_container> psql -U postgres -d weather_data -f /db/schema.sql
-4. Access Services
-Airflow UI → http://localhost:8080
+Access Services:
 
-Superset → http://localhost:8088
+Airflow UI: http://localhost:8080 (admin/admin)
 
-Use default credentials (admin/admin) unless customized.
+Superset UI: http://localhost:8088 (admin/admin)
 
-✅ Features
-Automated ETL: Weather data pulled from WeatherStack API
-
-Data Storage: Stored in structured PostgreSQL table
-
-Scheduling: Orchestrated with Airflow DAGs
-
-Visualization: Superset dashboards & SQL charts
-
-Dockerized: Easily portable and reproducible
-
-Error Handling & Deduplication included
-
-📊 Superset Dashboard
-Once data is loaded:
-
-Log into Superset.
-
-Connect to the PostgreSQL DB.
-
-Add a new dataset using the weather_data table.
-
-Build charts:
-
-Temperature over time
-
-Weather description counts
-
-Add charts to a dashboard and share/report insights.
-
-✏️ Example SQL Query for Superset
-sql
-Kopieren
-Bearbeiten
-SELECT
-  city,
-  AVG(temperature) as avg_temp,
-  DATE_TRUNC('day', observation_time) as day
-FROM weather_data
-GROUP BY city, day
-ORDER BY day;
+# Project Structure
+weather_pipeline/
+├── dags/
+│ └── weather_etl_dag.py # Airflow DAG for orchestration
+├── scripts/
+│ └── extract_weather.py # Python script for data extraction
+├── db/
+│ └── schema.sql # SQL schema for the PostgreSQL table
+└── docker-compose.yml # Main Docker configuration
